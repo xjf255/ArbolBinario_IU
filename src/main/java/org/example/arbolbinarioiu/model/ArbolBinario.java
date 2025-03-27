@@ -14,7 +14,7 @@ public class ArbolBinario {
     }
 
     public boolean insert(int valor) {
-        if (search(raiz, valor, 1) != null) return false;
+        if (search(raiz, valor, 1) != 0) return false;
         raiz = insert(raiz, valor,1);
         return true;
     }
@@ -72,30 +72,26 @@ public class ArbolBinario {
     }
 
     // search
-    public void search( int value) {
+    public String search( int value) {
         if(raiz == null) {
-            System.out.println("Nodo no encotrado");
-            return;
+            return "Nodo no encontrado";
         }
-        Nodo nodoSearched = search(raiz,value,1);
-        if(nodoSearched != null) {
-            System.out.println("Valor del nodo encontrado " + nodoSearched.getValor());
-            return;
+        int level =  search(raiz,value,1);
+        if(level == 0) {
+            return "Nodo no encontrado";
         }
-        System.out.println("Nodo no encontrado");
+        return "Nodo encontrado en el nivel: " + level;
     }
 
-    private Nodo search(Nodo root, int value,int level) {
-        if(!validRoot(root)) {
-            return null;
+    private Integer search(Nodo root, int value,int level) {
+        if(validRoot(root)) {
+            if(value == root.getValor()) {
+                return level;
+            }
+            if(value < root.getValor()) return search(root.getIzq(),value,level+1);
+            if(value > root.getValor()) return search(root.getDer(),value, level +1);
         }
-        if(value == root.getValor()) {
-            System.out.println("nodo en nivel: "+ level);
-            return root;
-        }
-        if(value < root.getValor()) return search(root.getIzq(),value,level+1);
-        if(value > root.getValor()) return search(root.getDer(),value, level +1);
-        return root;
+        return 0;
     }
     // root => izq => der
     public String recorridoPreOrder() {
@@ -104,7 +100,6 @@ public class ArbolBinario {
             return "Recorrido no encontrado en PreOrden";
         }
         String recorrido = recorridoPreOrder(raiz);
-        System.out.println("Recorrido " + recorrido);
         return  "Recorrido PreOrden : " + recorrido;
     }
     private String recorridoPreOrder(Nodo root) {
@@ -134,7 +129,6 @@ public class ArbolBinario {
             return "Recorrido no encontrado en PostOrden";
         }
         String postOrder = recorridoPostOrder(raiz);
-        System.out.println("Recorrido PostOrden : " + postOrder);
         return  "Recorrido PostOrden : " + postOrder;
     }
     private String recorridoPostOrder(Nodo root) {

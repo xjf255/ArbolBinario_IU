@@ -20,8 +20,9 @@
                     <HBox spacing="6">
                         <Button text="Agregar" onAction="#onAddNodoButtonClick"/>
                         <Button text="Eliminar" onAction="#onRemoveNodoButtonClick"/>
-                        <Button text="Buscar" />
+                        <Button text="Buscar" onAction="#onSearchNodoClicked"/>
                         <Button text="recorrer" onAction="#onGetOrderButtonClick"/>
+                        <Button text="Cargar Archivo" onAction="#onLoadFile" />
                     </HBox>
                 </HBox>
             </VBox>
