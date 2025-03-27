@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.canvas.Canvas?>
+<AnchorPane styleClass="root" xmlns="http://javafx.com/javafx"
+            stylesheets="@styles/style.css"
+            fx:controller="org.example.arbolbinarioiu.controller.HelloController"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="800.0" prefWidth="1200.0">
+    <GridPane styleClass="main" vgap="10">
+        <children>
+            <VBox styleClass="header" GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="20">
+                <HBox spacing="20">
+                    <HBox spacing="6" alignment="CENTER">
+                        <Label>Nodo:</Label>
+                        <TextField fx:id="txtNumber" promptText="Enter a number" />
+                    </HBox>
+                    <HBox spacing="6">
+                        <Button text="Agregar" onAction="#onAddNodoButtonClick"/>
+                        <Button text="Eliminar" onAction="#onRemoveNodoButtonClick"/>
+                        <Button text="Buscar" />
+                        <Button text="recorrer" onAction="#onGetOrderButtonClick"/>
+                    </HBox>
+                </HBox>
+            </VBox>
+            <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="body" spacing="10">
+                <StackPane fx:id="canvasContainer" minWidth="1200" minHeight="600"/>
+            </VBox>
+            <VBox styleClass="footer" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                <TextArea editable="false" styleClass="console" fx:id="console"/>
+            </VBox>
+        </children>
+    </GridPane>
+
+</AnchorPane>
