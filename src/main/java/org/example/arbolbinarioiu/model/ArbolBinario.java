@@ -193,11 +193,12 @@ public class ArbolBinario {
     }
 
     //todo:crear un archivo con los valores del recorrido PreOrder
-    void createFile() {
-        Path ruta = Paths.get("ArbolBinario.txt");
+    public void createFile() {
+        String downloadsPath = System.getProperty("user.home") + "/Downloads/ArbolBinario.txt";
+        Path ruta = Paths.get(downloadsPath);
         try {
             String message = recorridoPreOrder(raiz);
-            Files.writeString(ruta, message);
+            Files.writeString(ruta, message + "\n" + recorridoPostOrder() + "\n" + recorridoInOrder() +"\n" + recorridoPreOrder());
             System.out.println("archivo creado "+ ruta.getFileName());
         }catch (IOException e) {
             System.out.println("ocurrio un error");

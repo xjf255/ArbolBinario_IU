@@ -23,6 +23,7 @@
                         <Button text="Buscar" onAction="#onSearchNodoClicked"/>
                         <Button text="recorrer" onAction="#onGetOrderButtonClick"/>
                         <Button text="Cargar Archivo" onAction="#onLoadFile" />
+                        <Button text="Descargar" onAction="#onDownloadFileClicked" />
                     </HBox>
                 </HBox>
             </VBox>
