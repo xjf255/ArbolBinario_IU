@@ -21,8 +21,10 @@
                         <Button text="Agregar" onAction="#onAddNodoButtonClick"/>
                         <Button text="Eliminar" onAction="#onRemoveNodoButtonClick"/>
                         <Button text="Buscar" onAction="#onSearchNodoClicked"/>
+                        <Button text="Balancear" onAction="#onBalancedClicked" />
                         <Button text="recorrer" onAction="#onGetOrderButtonClick"/>
                         <Button text="Cargar Archivo" onAction="#onLoadFile" />
+                        <Button text="Descargar" onAction="#onDownloadFileClicked" />
                     </HBox>
                 </HBox>
             </VBox>

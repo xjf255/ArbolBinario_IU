@@ -162,7 +162,7 @@ public class ArbolBinario {
         }
         String inOrder = recorridoInOrder(raiz);
         System.out.println("Recorrido InOrden : " + inOrder);
-        return  "Recorrido InOrden : " + inOrder;
+        return inOrder;
     }
     private String recorridoInOrder(Nodo root) {
         if(root == null) {
@@ -193,11 +193,12 @@ public class ArbolBinario {
     }
 
     //todo:crear un archivo con los valores del recorrido PreOrder
-    void createFile() {
-        Path ruta = Paths.get("ArbolBinario.txt");
+    public void createFile() {
+        String downloadsPath = System.getProperty("user.home") + "/Downloads/ArbolBinario.txt";
+        Path ruta = Paths.get(downloadsPath);
         try {
             String message = recorridoPreOrder(raiz);
-            Files.writeString(ruta, message);
+            Files.writeString(ruta, message + "\n" + recorridoPostOrder() + "\n" + recorridoInOrder() +"\n" + recorridoPreOrder());
             System.out.println("archivo creado "+ ruta.getFileName());
         }catch (IOException e) {
             System.out.println("ocurrio un error");
@@ -205,8 +206,8 @@ public class ArbolBinario {
         }
     }
 
-    public void printAlt() {
-        System.out.println("Altura: " + alt);
+    public int getAlt() {
+        return alt;
     }
 
     private boolean validRoot(Nodo root){
@@ -216,5 +217,9 @@ public class ArbolBinario {
     public Nodo getRoot() {
         if(raiz == null) return null;
         return raiz;
+    }
+
+    public void setRaiz(Nodo raiz){
+        this.raiz = raiz;
     }
 }
