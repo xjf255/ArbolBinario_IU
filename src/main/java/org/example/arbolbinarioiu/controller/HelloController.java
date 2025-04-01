@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.example.arbolbinarioiu.model.ArbolAVL;
 import org.example.arbolbinarioiu.model.ArbolBinario;
 import org.example.arbolbinarioiu.model.Nodo;
 import org.graphstream.graph.ElementNotFoundException;
@@ -27,9 +26,11 @@ public class HelloController {
     @FXML private StackPane canvasContainer;
     private FxViewPanel panel;
     private ArbolBinario ab = new ArbolBinario();
-    @FXML
-    private Stage primaryStage;
 
+    @FXML
+    private Stage primaryStage; // Agregar referencia al stage principal
+
+    // Método para inyectar el Stage principal
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
@@ -57,10 +58,10 @@ public class HelloController {
     }
 
     private void processFileContent(List<String> lines) throws NumberFormatException {
-        ab = new ArbolBinario();
+        ab = new ArbolBinario(); // Reiniciamos el árbol
 
         for (String line : lines) {
-            String[] numbers = line.split(",");
+            String[] numbers = line.split(","); // Separar por espacios
             for (String numStr : numbers) {
                 if (!numStr.isEmpty()) {
                     int num = Integer.parseInt(numStr.trim());
@@ -100,18 +101,6 @@ public class HelloController {
     }
 
     @FXML
-    protected void onDownloadFileClicked(){
-        ab.createFile();
-    }
-
-    @FXML
-    protected void onBalancedClicked(){
-        ArbolAVL avl = new ArbolAVL();
-        avl.balance(ab);
-        updatedTree();
-    }
-
-    @FXML
     protected void onAddNodoButtonClick() {
         String value = txtNumber.getText();
         txtNumber.clear();
@@ -145,7 +134,7 @@ public class HelloController {
     @FXML
     protected void onGetOrderButtonClick() {
         console.appendText(ab.recorridoPreOrder() + "\n");
-        console.appendText("Recorrido InOrden : " +  ab.recorridoInOrder() + "\n");
+        console.appendText(ab.recorridoInOrder() + "\n");
         console.appendText(ab.recorridoPostOrder() + "\n");
     }
 
@@ -156,12 +145,8 @@ public class HelloController {
         Graph graph = new SingleGraph("Árbol Binario");
         construirGrafoDesdeArbol(graph, ab);
         graph.setAttribute("ui.stylesheet",
-                "node { fill-color: #FFA07A; size: 40px; text-size: 16; shape: circle; }" +
+                "node { fill-color: #FFA07A; size: 30px; text-size: 14; }" +
                         "edge { fill-color: #4682B4; size: 3px; }");
-
-        graph.setAttribute("ui.antialias");
-        graph.setAttribute("layout.quality", 4);
-        graph.setAttribute("layout.algorithm", "org.graphstream.algorithm.layout.EHierarchicalLayout");
         FxViewer viewer = new FxViewer(graph, FxViewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
         panel = (FxViewPanel) viewer.addDefaultView(false, new FxGraphRenderer());
@@ -177,13 +162,16 @@ public class HelloController {
     private void agregarNodoYHijos(Graph graph, Nodo nodo) {
         if (nodo == null) return;
 
+        // First ensure the current node exists
         String id = String.valueOf(nodo.getValor());
         if (graph.getNode(id) == null) {
             graph.addNode(id).setAttribute("ui.label", id);
         }
 
+        // Then handle left child
         if (nodo.getIzq() != null) {
             String idIzq = String.valueOf(nodo.getIzq().getValor());
+            // Ensure left child exists before creating edge
             if (graph.getNode(idIzq) == null) {
                 graph.addNode(idIzq).setAttribute("ui.label", idIzq);
             }
@@ -191,8 +179,10 @@ public class HelloController {
             agregarNodoYHijos(graph, nodo.getIzq());
         }
 
+        // Then handle right child
         if (nodo.getDer() != null) {
             String idDer = String.valueOf(nodo.getDer().getValor());
+            // Ensure right child exists before creating edge
             if (graph.getNode(idDer) == null) {
                 graph.addNode(idDer).setAttribute("ui.label", idDer);
             }
